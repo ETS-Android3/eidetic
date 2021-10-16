@@ -24,16 +24,16 @@
 
 
     <ImageButton
-        android:id="@+id/search"
+        android:id="@+id/reload"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_marginStart="133dp"
+        android:layout_marginStart="92dp"
         android:layout_marginTop="4dp"
         android:layout_toEndOf="@+id/textView3"
         android:background="@android:color/transparent"
         android:scaleType="fitXY"
-        android:src="@drawable/ic_search"
+        android:src="@drawable/ic_refresh"
         android:textColor="#808080"
         android:textSize="50sp"
         app:layout_constraintEnd_toEndOf="parent"

@@ -61,6 +61,7 @@ public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             System.out.println("do nothing----------------");
+                            refreshsecondFragment();
                         }
                     });
             AlertDialog dialog=builder.create();
@@ -187,18 +188,20 @@ public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
                 String task=text.getText().toString();
                 System.out.println(task);
                 if(prevtask.equals(task)){
-                    Toast.makeText(thiscontext,"No update made.",Toast.LENGTH_LONG).show();
+                    Toast.makeText(thiscontext,"No update made.",Toast.LENGTH_SHORT).show();
+                    refreshsecondFragment();
 
                 }
                 else {
                     Boolean checkupdatedata=DB.updateuserdetails(id,task);
                     if(checkupdatedata){
-                        Toast.makeText(thiscontext,"update saved",Toast.LENGTH_LONG).show();
+                        Toast.makeText(thiscontext,"update saved",Toast.LENGTH_SHORT).show();
                         refreshsecondFragment();
 
                     }
                     else{
-                        Toast.makeText(thiscontext,"update not saved",Toast.LENGTH_LONG).show();
+                        Toast.makeText(thiscontext,"update not saved",Toast.LENGTH_SHORT).show();
+                        refreshsecondFragment();
                     }
                 }
 

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ import com.example.todo_app.Adapter.ToDoAdapter;
 import com.example.todo_app.Model.ToDoModel;
 import com.example.todo_app.Utils.DatabaseHelper;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class SecondFragment extends Fragment {
 
@@ -50,10 +52,17 @@ public class SecondFragment extends Fragment {
         taskRecyclerView.setAdapter(taskAdapter);
         ItemTouchHelper itemTouchHelper=new ItemTouchHelper(new RecyclerItemTouchHelper(taskAdapter));
         itemTouchHelper.attachToRecyclerView(taskRecyclerView);
+        ImageButton reloadbtn = (ImageButton) view.findViewById(R.id.reload);
+        reloadbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                refreshsecondFragment();
+            }
+        });
         DB = new DatabaseHelper(thiscontext);
         Cursor res = DB.getdata();
         if (res.getCount() == 0) {
-            Toast.makeText(thiscontext, "whoohoo! No ToDo Present", Toast.LENGTH_LONG).show();
+            Toast.makeText(thiscontext, "whoohoo! No ToDo Present", Toast.LENGTH_SHORT).show();
 
         } else {
 
@@ -75,6 +84,13 @@ public class SecondFragment extends Fragment {
         return view;
     }
 
+    private void refreshsecondFragment() {
+        SecondFragment fragment = new SecondFragment();
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.flFragment, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
 
 
 
