@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity{
     private List<ToDoModel> taskList;
     DatabaseHelper DB;
     Context thiscontext;
+    private long pressedTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,6 +124,18 @@ public class MainActivity extends AppCompatActivity{
         });
 
         bottomSheetDialog.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (pressedTime + 2000 > System.currentTimeMillis()) {
+            super.onBackPressed();
+            finish();
+        } else {
+            Toast.makeText(getBaseContext(), "Press back again to exit", Toast.LENGTH_SHORT).show();
+        }
+        pressedTime = System.currentTimeMillis();
     }
 
 
