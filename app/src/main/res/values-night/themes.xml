@@ -5,6 +5,7 @@
         <item name="colorPrimary">#27AEF6</item>
         <item name="colorPrimaryVariant">#16628A</item>
         <item name="colorOnPrimary">@color/black</item>
+
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_200</item>
