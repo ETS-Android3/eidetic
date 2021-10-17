@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
     private ToDoAdapter taskAdapter;
     private List<ToDoModel> taskList;
     DatabaseHelper DB;
@@ -37,14 +37,14 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
 
 
-        taskList=new ArrayList<>();
+        taskList = new ArrayList<>();
         FirstFragment hometab = new FirstFragment();
         SecondFragment todostab = new SecondFragment();
         ThirdFragment notificationtab = new ThirdFragment();
         fourthFragment profiletab = new fourthFragment();
 
         loadFragment(todostab);
-        View bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottomNevigationView);
+        View bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNevigationView);
         bottomNavigationView.setBackground(null);
 
         BottomNavigationView bottomNav = findViewById(R.id.bottomNevigationView);
@@ -71,15 +71,13 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
-        FloatingActionButton addfloatBotton = (FloatingActionButton)findViewById(R.id.addtaskbtn);
+        FloatingActionButton addfloatBotton = (FloatingActionButton) findViewById(R.id.addtaskbtn);
         addfloatBotton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showBottomSheetDialog();
             }
         });
-
-
 
 
     }
@@ -93,31 +91,34 @@ public class MainActivity extends AppCompatActivity{
 
     private void showBottomSheetDialog() {
 
-        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this,R.style.DialogStyle);
+        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this, R.style.DialogStyle);
         bottomSheetDialog.setContentView(R.layout.new_task);
         thiscontext = bottomSheetDialog.getContext();
 
-        DB=new DatabaseHelper(thiscontext);
+        DB = new DatabaseHelper(thiscontext);
 
-        Button save=bottomSheetDialog.findViewById(R.id.newtaskbtn);
+        Button save = bottomSheetDialog.findViewById(R.id.newtaskbtn);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 EditText text = bottomSheetDialog.findViewById(R.id.newtaskText);
-                String task=text.getText().toString();
+                String task = text.getText().toString();
                 System.out.println(task);
-                Boolean checkinsertdata=DB.insertuserdetails(task);
-                if(checkinsertdata){
-                    Toast.makeText(MainActivity.this,"new entry inserted",Toast.LENGTH_LONG).show();
+                if (task.equals("")) {
+                    Toast.makeText(MainActivity.this, "Empty todo entry found.", Toast.LENGTH_SHORT).show();
+                } else {
 
-                    SecondFragment todostab = new SecondFragment();
-                    loadFragment(todostab);
+                    Boolean checkinsertdata = DB.insertuserdetails(task);
+                    if (checkinsertdata) {
+                        Toast.makeText(MainActivity.this, "new entry inserted", Toast.LENGTH_SHORT).show();
 
+                        SecondFragment todostab = new SecondFragment();
+                        loadFragment(todostab);
+
+                    } else {
+                        Toast.makeText(MainActivity.this, "entry not inserted", Toast.LENGTH_SHORT).show();
+                    }
                 }
-                else{
-                    Toast.makeText(MainActivity.this,"entry not inserted",Toast.LENGTH_LONG).show();
-                }
-
 
 
             }
@@ -137,7 +138,6 @@ public class MainActivity extends AppCompatActivity{
         }
         pressedTime = System.currentTimeMillis();
     }
-
 
 
 }

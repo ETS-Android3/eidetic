@@ -74,8 +74,8 @@ public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
     }
     @Override
     public void onChildDraw(Canvas c,RecyclerView recyclerView,RecyclerView.ViewHolder viewHolder,float dx,float dy,int actionState,boolean isCurrentlyactive){
-        super.onChildDraw(c,recyclerView,viewHolder,dx,dy,actionState,isCurrentlyactive);
-
+        super.onChildDraw(c,recyclerView,viewHolder,dx/4,dy,actionState,isCurrentlyactive);
+        // for limit on swipe make dx to dx/4 on super.onChildDraw, for full swipe set dx
         Drawable icon;
         ColorDrawable background;
         View itemView= viewHolder.itemView;
