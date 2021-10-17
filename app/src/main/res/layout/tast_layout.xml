@@ -15,12 +15,21 @@
 
         <CheckBox
             android:id="@+id/todoCheckbox"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginRight="80dp"
             android:layout_height="wrap_content"
-            tools:text="sample task"
-            android:paddingStart="8dp"
             android:buttonTint="@color/blue"
-            />
+            android:paddingStart="8dp"
+            android:textSize="16dp"
+            tools:text="sample task" />
+        <TextView
+            android:id="@+id/todoDate"
+            android:layout_width="75dp"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:textColor="@android:color/holo_green_dark"
+            android:textStyle="bold"
+            android:layout_alignParentEnd="true"/>
 
     </RelativeLayout>
 

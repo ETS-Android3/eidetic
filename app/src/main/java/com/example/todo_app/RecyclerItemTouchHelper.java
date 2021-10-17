@@ -71,6 +71,8 @@ public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
         else{
             gettaskdone("edit",position);
         }
+
+
     }
     @Override
     public void onChildDraw(Canvas c,RecyclerView recyclerView,RecyclerView.ViewHolder viewHolder,float dx,float dy,int actionState,boolean isCurrentlyactive){
@@ -141,6 +143,8 @@ public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
             System.out.println("Deleting....................");
             deleteItem(pos);
         }
+
+
 
 
     }

@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="100px"
-    android:background="@drawable/round_border"
-
+    android:layout_marginBottom="0dp"
     >
 
     <EditText
@@ -14,19 +12,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@null"
-        android:hint="New Task"
+        android:hint="Add New Task"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         tools:ignore="TouchTargetSizeCheck" />
+
     <Button
         android:id="@+id/newtaskbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/newtaskText"
         android:layout_alignParentEnd="true"
-        android:textAllCaps="false"
-        android:textSize="16dp"
-        android:text="Save"
         android:background="@android:color/transparent"
-        android:textColor="@color/blue"/>
+        android:text="Add"
+        android:textAllCaps="false"
+        android:textColor="@color/blue"
+        android:textSize="18dp" />
 
 </RelativeLayout>

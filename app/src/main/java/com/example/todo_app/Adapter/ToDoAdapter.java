@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -40,6 +41,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
         final ToDoModel item = todoList.get(position);
         holder.task.setText(item.getTask());
         holder.task.setChecked(toBoolean(item.getStatus()));
+        holder.date.setText(item.getDate());
 
     }
         public int getItemCount () {
@@ -61,10 +63,12 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
 
         public static class ViewHolder extends RecyclerView.ViewHolder {
             CheckBox task;
-
+            TextView date;
             ViewHolder(View view) {
                 super(view);
                 task = view.findViewById(R.id.todoCheckbox);
+                date=view.findViewById(R.id.todoDate);
+
             }
         }
     }

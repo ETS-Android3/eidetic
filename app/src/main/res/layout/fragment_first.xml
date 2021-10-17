@@ -40,7 +40,7 @@
             android:layout_marginTop="4dp"
             android:background="@android:color/transparent"
             android:scaleType="fitXY"
-            android:src="@drawable/ic_search"
+            android:src="@drawable/ic_person"
             android:textColor="#808080"
             android:textSize="50sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -49,19 +49,160 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="SpeakableTextPresentCheck" />
 
-        <androidx.cardview.widget.CardView
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="108dp"
-            android:background="@color/blue"
-            android:backgroundTint="@color/blue"
+            android:background="@drawable/cardgred"
             app:cardCornerRadius="20dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.6"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-        </androidx.cardview.widget.CardView>
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="149dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="4dp"
+                android:src="@drawable/todo"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:layout_editor_absoluteY="0dp" />
+
+            <TextView
+                android:id="@+id/homeapptitle"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:gravity="bottom"
+                android:paddingLeft="20dp"
+                android:text="@string/app_name"
+                android:textColor="@color/white"
+                android:textSize="50dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/imageView"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:gravity="top"
+                android:paddingLeft="20dp"
+                android:text="Remember tasks better"
+                android:textColor="#FFFFFF"
+                android:textSize="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/homeapptitle" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="300dp"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/todocount"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/todocount"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:gravity="bottom|center_horizontal"
+                android:text="10"
+                android:paddingBottom="0dp"
+                android:textColor="@color/blue"
+                android:textSize="50dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
+                android:gravity="center_horizontal"
+                android:paddingVertical="10dp"
+                android:text="ToDos"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/todocount"
+                app:layout_constraintVertical_bias="0.0" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="140dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="300dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/cardgred"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.996"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            >
+            <TextView
+                android:id="@+id/duecount"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:gravity="bottom|center_horizontal"
+                android:text="0"
+                android:paddingBottom="0dp"
+                android:textColor="@color/blue"
+                android:textSize="50dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
+                android:gravity="center_horizontal"
+                android:paddingVertical="10dp"
+                android:text="Dues"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/duecount"
+                app:layout_constraintVertical_bias="0.0" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
