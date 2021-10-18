@@ -107,8 +107,9 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="200dp"
+            android:layout_width="0dp"
             android:layout_height="200dp"
+            app:layout_constraintWidth_percent="0.5"
             android:layout_marginTop="300dp"
             android:layout_marginLeft="20dp"
             android:background="@drawable/todocount"
@@ -155,8 +156,9 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="140dp"
+            android:layout_width="0dp"
             android:layout_height="200dp"
+            app:layout_constraintWidth_percent="0.3"
             android:layout_marginTop="300dp"
             android:layout_marginRight="20dp"
             android:background="@drawable/cardgred"
@@ -174,7 +176,7 @@
                 android:gravity="bottom|center_horizontal"
                 android:text="0"
                 android:paddingBottom="0dp"
-                android:textColor="@color/blue"
+                android:textColor="#75F30A"
                 android:textSize="50dp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"

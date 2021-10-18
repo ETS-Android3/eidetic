@@ -1,11 +1,13 @@
 package com.example.todo_app;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -99,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
         Button save = bottomSheetDialog.findViewById(R.id.newtaskbtn);
         save.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
                 EditText text = bottomSheetDialog.findViewById(R.id.newtaskText);

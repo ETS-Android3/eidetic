@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,11 +20,9 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
     private List<ToDoModel> todoList;
     private SecondFragment activity;
 
-    public  ToDoAdapter(SecondFragment activity){
-        this.activity=activity;
+    public ToDoAdapter(SecondFragment activity) {
+        this.activity = activity;
     }
-
-
 
 
     @NonNull
@@ -42,34 +41,48 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
         holder.task.setText(item.getTask());
         holder.task.setChecked(toBoolean(item.getStatus()));
         holder.date.setText(item.getDate());
-
-    }
-        public int getItemCount () {
-            return todoList.size();
-        }
-        private Boolean toBoolean ( int n){
-            return n != 0;
-        }
-
-        public SecondFragment getContext () {
-            return activity;
-        }
-        public void setTasks (List<ToDoModel> todoList) {
-            this.todoList = todoList;
-        }
-
-
-
-
-        public static class ViewHolder extends RecyclerView.ViewHolder {
-            CheckBox task;
-            TextView date;
-            ViewHolder(View view) {
-                super(view);
-                task = view.findViewById(R.id.todoCheckbox);
-                date=view.findViewById(R.id.todoDate);
-
+        holder.task.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean checked = ((CheckBox) v).isChecked();
+                if(checked){
+                    ImageButton deletechecked = (ImageButton) activity.getActivity().findViewById(R.id.deletechecked);
+                    deletechecked.setVisibility(View.VISIBLE);
+                }
             }
+        });
+
+    }
+
+    public int getItemCount() {
+        return todoList.size();
+    }
+
+    private Boolean toBoolean(int n) {
+        return n != 0;
+    }
+
+    public SecondFragment getContext() {
+        return activity;
+    }
+
+    public void setTasks(List<ToDoModel> todoList) {
+        this.todoList = todoList;
+    }
+
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        CheckBox task;
+        TextView date;
+
+        ViewHolder(View view) {
+            super(view);
+            task = view.findViewById(R.id.todoCheckbox);
+            date = view.findViewById(R.id.todoDate);
+
         }
     }
+
+
+}
 
