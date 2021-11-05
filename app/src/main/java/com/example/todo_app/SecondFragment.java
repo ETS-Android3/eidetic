@@ -103,7 +103,7 @@ public class SecondFragment extends Fragment {
                 task.setDate(res.getString(2));
 
                 taskList.add(task);
-                System.out.println(res.getInt(0) + res.getString(1) + res.getString(2));
+//                System.out.println(res.getInt(0) + res.getString(1) + res.getString(2));
             }
         }
 
@@ -115,6 +115,9 @@ public class SecondFragment extends Fragment {
     }
 
     private void refreshsecondFragment() {
+        RecyclerView mRecView = (RecyclerView) view.findViewById(R.id.taskRecyclerview);
+        int size = mRecView.getAdapter().getItemCount();
+        System.out.println(size);
         getChecked();
         SecondFragment fragment = new SecondFragment();
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
@@ -127,15 +130,31 @@ public class SecondFragment extends Fragment {
 
     private List<Integer> getChecked() {
         RecyclerView mRecView = (RecyclerView) view.findViewById(R.id.taskRecyclerview);
-        int size = mRecView.getChildCount();
+        int size = mRecView.getAdapter().getItemCount();
         System.out.println(size);
         List<Integer> list = new ArrayList<Integer>();
         for (int i = 0; i < size; i++) {
-            ToDoAdapter.ViewHolder wordView = (ToDoAdapter.ViewHolder) mRecView.findViewHolderForLayoutPosition(i);
-            CheckBox status = (CheckBox) wordView.itemView.findViewById(R.id.todoCheckbox);
-            if (status.isChecked()) {
-                list.add(i);
+
+//            ToDoAdapter.ViewHolder wordView = (ToDoAdapter.ViewHolder) mRecView.getChildAt(i);
+            View wordview=mRecView.getChildAt(i);
+//            CheckBox status = (CheckBox) wordView.itemView.findViewById(R.id.todoCheckbox);
+            if(wordview==null){
+                System.out.println("null at pos "+i);
             }
+            else{
+                CheckBox status=wordview.findViewById(R.id.todoCheckbox);
+                if (status.isChecked()) {
+                    list.add(i);
+                    System.out.println("yes "+i);
+                }
+                else{
+                    System.out.println("no "+i);
+                }
+
+            }
+
+
+
 
         }
         return list;

@@ -19,7 +19,7 @@
 
         <TextView
             android:id="@+id/textView3"
-            android:layout_width="207dp"
+            android:layout_width="wrap_content"
             android:layout_height="45dp"
             android:layout_marginTop="4dp"
             android:paddingLeft="20dp"
@@ -32,22 +32,29 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-        <ImageButton
-            android:id="@+id/search"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/sign_in_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:background="@android:color/transparent"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_search"
-            android:textColor="#808080"
-            android:textSize="50sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.808"
+            app:layout_constraintStart_toEndOf="@+id/textView3"
+            app:layout_constraintTop_toTopOf="parent"/>
+        <Button
+            android:id="@+id/sign_out_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Sign Out"
+            android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.808"
             app:layout_constraintStart_toEndOf="@+id/textView3"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="SpeakableTextPresentCheck" />
+            android:visibility="gone"
+            />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="380dp"
