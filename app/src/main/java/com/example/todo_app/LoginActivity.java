@@ -27,11 +27,11 @@ import com.google.android.gms.tasks.Task;
 public class LoginActivity extends AppCompatActivity {
     GoogleSignInClient mGoogleSignInClient;
     Button signInButton;
+    private long pressedTime;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.loginactivity);
-
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
@@ -63,6 +63,7 @@ public class LoginActivity extends AppCompatActivity {
             String personId = account.getId();
             Uri personPhoto = account.getPhotoUrl();
             final Intent i=new Intent(LoginActivity.this,MainActivity.class);
+            finish();
             startActivity(i);
 
 
@@ -98,5 +99,18 @@ public class LoginActivity extends AppCompatActivity {
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
             Log.d("GOOGLE ERROR",e.getMessage());
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (pressedTime + 2000 > System.currentTimeMillis()) {
+            super.onBackPressed();
+            finish();
+        } else {
+            Toast.makeText(getBaseContext(), "Press back again to exit", Toast.LENGTH_SHORT).show();
+
+        }
+        pressedTime = System.currentTimeMillis();
     }
 }

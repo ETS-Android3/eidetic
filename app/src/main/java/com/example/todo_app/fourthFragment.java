@@ -40,6 +40,8 @@ public class fourthFragment extends Fragment {
     Context thiscontext;
     View view;
     TextView textView3;
+    TextView textView4;
+    TextView textView5;
     CircularImageView usrdp;
 
     public fourthFragment(){
@@ -87,8 +89,12 @@ public class fourthFragment extends Fragment {
             String personId = account.getId();
             Uri personPhoto = account.getPhotoUrl();
             textView3=view.findViewById(R.id.textView3);
+            textView4=view.findViewById(R.id.textView4);
+            textView5=view.findViewById(R.id.textView5);
             usrdp =view.findViewById(R.id.UserImage);
-            textView3.setText("hi, "+personGivenName);
+            textView3.setText(personName);
+            textView4.setText("@"+personEmail);
+            textView5.setText("hi, "+personGivenName);
             textView3.setTextSize(20);
             Picasso.get().load(personPhoto).into(usrdp);
             System.out.println(personPhoto);
@@ -106,6 +112,7 @@ public class fourthFragment extends Fragment {
 
     public void redirectAuthPage(){
         final Intent i=new Intent(thiscontext,LoginActivity.class);
+        getActivity().finish();
         startActivity(i);
     }
 
