@@ -10,12 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.io.*;
-import java.util.Objects;
-import java.util.concurrent.Executor;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -24,7 +21,6 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.example.todo_app.*;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -33,6 +29,8 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.mikhaellopez.circularimageview.CircularImageView;
+import com.squareup.picasso.Picasso;
 
 public class fourthFragment extends Fragment {
 
@@ -42,6 +40,7 @@ public class fourthFragment extends Fragment {
     Context thiscontext;
     View view;
     TextView textView3;
+    CircularImageView usrdp;
 
     public fourthFragment(){
         // require a empty public constructor
@@ -63,17 +62,6 @@ public class fourthFragment extends Fragment {
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(view.getContext());
         updateUI(account);
 
-        signInButton = view.findViewById(R.id.sign_in_button);
-        signInButton.setSize(SignInButton.SIZE_STANDARD);
-
-
-        signInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-                startactivityresult.launch(signInIntent);
-            }
-        });
 
 
 //        sign out button setup
@@ -90,8 +78,7 @@ public class fourthFragment extends Fragment {
     }
 
     public void updateUI(GoogleSignInAccount account){
-        SignInButton signInButton = view.findViewById(R.id.sign_in_button);
-        Button signoutButton=view.findViewById(R.id.sign_out_button);
+
         if(account!=null){
             String personName = account.getDisplayName();
             String personGivenName = account.getGivenName();
@@ -100,21 +87,26 @@ public class fourthFragment extends Fragment {
             String personId = account.getId();
             Uri personPhoto = account.getPhotoUrl();
             textView3=view.findViewById(R.id.textView3);
-            textView3.setText("Hi,"+personName);
+            usrdp =view.findViewById(R.id.UserImage);
+            textView3.setText("hi, "+personGivenName);
             textView3.setTextSize(20);
-            signInButton.setVisibility(View.GONE);
-            signoutButton.setVisibility(View.VISIBLE);
+            Picasso.get().load(personPhoto).into(usrdp);
+            System.out.println(personPhoto);
+
 
 
         }
         else{
-            textView3=view.findViewById(R.id.textView3);
-            textView3.setText("Profile");
-            textView3.setTextSize(30);
-            signInButton.setVisibility(View.VISIBLE);
-            signoutButton.setVisibility(View.GONE);
+            redirectAuthPage();
 
         }
+    }
+
+
+
+    public void redirectAuthPage(){
+        final Intent i=new Intent(thiscontext,LoginActivity.class);
+        startActivity(i);
     }
 
 
@@ -134,7 +126,6 @@ public class fourthFragment extends Fragment {
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-            updateUI(account);
             // Signed in successfully, show authenticated UI.
             Toast.makeText(thiscontext, "Congratulations ! successfully signed in.", Toast.LENGTH_SHORT).show();
 
@@ -151,7 +142,7 @@ public class fourthFragment extends Fragment {
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        updateUI(null);
+                        redirectAuthPage();
                         Toast.makeText(thiscontext, "See you later! successfully signed out.", Toast.LENGTH_SHORT).show();
                     }
                 });
