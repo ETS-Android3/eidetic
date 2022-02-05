@@ -40,7 +40,6 @@ public class FirstFragment extends Fragment {
                 duecounter++;
             }
 
-//                System.out.println(res.getInt(0) + res.getString(1) + res.getString(2));
         }
 
 

@@ -53,7 +53,7 @@
             android:layout_width="380dp"
             android:layout_height="150dp"
             android:layout_marginTop="108dp"
-            android:background="@color/purple_500"
+            android:background="?attr/colorPrimaryVariant"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">

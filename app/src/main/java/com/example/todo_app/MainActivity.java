@@ -115,11 +115,11 @@ public class MainActivity extends AppCompatActivity {
                 if (task.equals("")) {
                     Toast.makeText(MainActivity.this, "Empty todo entry found.", Toast.LENGTH_SHORT).show();
                 } else {
-                    if(date.equals("")){
-                        date=getCurDate();
+                    if (date.equals("")) {
+                        date = getCurDate();
                     }
 
-                    Boolean checkinsertdata = DB.insertuserdetails(task,date);
+                    Boolean checkinsertdata = DB.insertuserdetails(task, date);
                     if (checkinsertdata) {
                         Toast.makeText(MainActivity.this, "new entry inserted", Toast.LENGTH_SHORT).show();
 
@@ -147,12 +147,12 @@ public class MainActivity extends AppCompatActivity {
         return date;
 
     }
-    public String  makeDoubledigit(int a){
-        if(a<10){
-            return "0"+a;
-        }
-        else{
-            return ""+a;
+
+    public String makeDoubledigit(int a) {
+        if (a < 10) {
+            return "0" + a;
+        } else {
+            return "" + a;
         }
     }
 

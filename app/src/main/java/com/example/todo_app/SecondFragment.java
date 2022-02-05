@@ -101,10 +101,6 @@ public class SecondFragment extends Fragment {
     }
 
     private void refreshsecondFragment() {
-        RecyclerView mRecView = (RecyclerView) view.findViewById(R.id.taskRecyclerview);
-        int size = mRecView.getAdapter().getItemCount();
-        System.out.println(size);
-        getChecked();
         SecondFragment fragment = new SecondFragment();
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.flFragment, fragment);
@@ -112,74 +108,6 @@ public class SecondFragment extends Fragment {
         transaction.commit();
 
 
-    }
-
-    private List<Integer> getChecked() {
-        RecyclerView mRecView = (RecyclerView) view.findViewById(R.id.taskRecyclerview);
-        int size = mRecView.getAdapter().getItemCount();
-        System.out.println(size);
-        List<Integer> list = new ArrayList<Integer>();
-        for (int i = 0; i < size; i++) {
-
-//            ToDoAdapter.ViewHolder wordView = (ToDoAdapter.ViewHolder) mRecView.getChildAt(i);
-            View wordview = mRecView.getChildAt(i);
-//            CheckBox status = (CheckBox) wordView.itemView.findViewById(R.id.todoCheckbox);
-            if (wordview == null) {
-                System.out.println("null at pos " + i);
-            } else {
-                CheckBox status = wordview.findViewById(R.id.todoCheckbox);
-                if (status.isChecked()) {
-                    list.add(i);
-                    System.out.println("yes " + i);
-                } else {
-                    System.out.println("no " + i);
-                }
-
-            }
-
-
-        }
-        return list;
-
-
-    }
-
-
-    public void deleteItem(int position) {
-        ToDoModel item = taskList.get(position);
-        int editid = item.getId();
-        System.out.println("id : " + editid + " - " + item.getTask());
-        Boolean checkupdatedata = DB.deleteuserdetails(editid);
-    }
-
-    public void createdialog(List<Integer> checkedlist) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(thiscontext);
-        builder.setTitle("Delete Task");
-        builder.setMessage("Are you sure you want to delete this task?");
-        builder.setPositiveButton("Confirm",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        System.out.println("delete------------");
-                        for (int pos : checkedlist) {
-                            System.out.println("deleting task on - " + pos);
-                            deleteItem(pos);
-                        }
-                        refreshsecondFragment();
-
-                    }
-                });
-        builder.setNegativeButton(android.R.string.cancel,
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        System.out.println("do nothing----------------");
-//                        refreshsecondFragment();
-                    }
-                });
-        AlertDialog dialog = builder.create();
-        dialog.show();
     }
 
 

@@ -4,7 +4,7 @@
     <style name="Theme.Todo_app" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">#3667C8</item>
-        <item name="colorPrimaryVariant">#324771</item>
+        <item name="colorPrimaryVariant">#A9C0EC</item>
         <item name="colorOnPrimary">#ECEFF4</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">#E5E9F0</item>
