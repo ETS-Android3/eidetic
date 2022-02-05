@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/flFragment"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:fillViewport="true"
     tools:layout_editor_absoluteX="1dp"
     tools:layout_editor_absoluteY="1dp">
@@ -45,6 +45,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout2"
             android:layout_width="380dp"
             android:layout_height="150dp"
             android:layout_marginTop="92dp"
@@ -86,8 +87,8 @@
                 android:layout_width="271dp"
                 android:layout_height="63dp"
                 android:layout_marginTop="60dp"
-                android:paddingTop="5dp"
                 android:paddingLeft="10dp"
+                android:paddingTop="5dp"
                 android:text="Profile"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="17dp"
@@ -96,8 +97,21 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
 
-
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/appversion"
+            android:layout_width="215dp"
+            android:layout_height="36dp"
+            android:gravity="center_horizontal|right"
+            android:text="@string/appversion"
+            android:textSize="17dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.918"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
+            app:layout_constraintVertical_bias="0.165" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

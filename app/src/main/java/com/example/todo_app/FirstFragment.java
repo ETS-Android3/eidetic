@@ -13,6 +13,7 @@ import java.io.*;
 import androidx.fragment.app.Fragment;
 
 import com.example.todo_app.*;
+import com.example.todo_app.Model.ToDoModel;
 import com.example.todo_app.Utils.DatabaseHelper;
 
 public class FirstFragment extends Fragment {
@@ -32,10 +33,21 @@ public class FirstFragment extends Fragment {
         DB = new DatabaseHelper(thiscontext);
         Cursor res = DB.getdata();
         int counter=res.getCount();
+        int duecounter=0;
+        while (res.moveToNext()) {
+            ToDoModel task = new ToDoModel();
+            if(res.getInt(3)==0){
+                duecounter++;
+            }
+
+//                System.out.println(res.getInt(0) + res.getString(1) + res.getString(2));
+        }
 
 
         TextView val=(TextView)view.findViewById(R.id.todocount);
         val.setText(Integer.toString(counter));
+        TextView duebox=(TextView)view.findViewById(R.id.duecount);
+        duebox.setText(Integer.toString(duecounter));
         return view;
     }
 }

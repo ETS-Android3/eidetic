@@ -72,15 +72,14 @@ public class SecondFragment extends Fragment {
         });
 
 
-
         //  calling databasehelper
         DB = new DatabaseHelper(thiscontext);
         Cursor res = DB.getdata();
         if (res.getCount() == 0) {
-            Toast.makeText(thiscontext, "whoohoo! No ToDo Present", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(thiscontext, "whoohoo! No ToDo Present", Toast.LENGTH_SHORT).show();
 
         } else {
-            ImageView emptyimage=(ImageView) view.findViewById(R.id.emptypage);
+            ImageView emptyimage = (ImageView) view.findViewById(R.id.emptypage);
             emptyimage.setVisibility(View.INVISIBLE);
 
             while (res.moveToNext()) {
@@ -123,24 +122,20 @@ public class SecondFragment extends Fragment {
         for (int i = 0; i < size; i++) {
 
 //            ToDoAdapter.ViewHolder wordView = (ToDoAdapter.ViewHolder) mRecView.getChildAt(i);
-            View wordview=mRecView.getChildAt(i);
+            View wordview = mRecView.getChildAt(i);
 //            CheckBox status = (CheckBox) wordView.itemView.findViewById(R.id.todoCheckbox);
-            if(wordview==null){
-                System.out.println("null at pos "+i);
-            }
-            else{
-                CheckBox status=wordview.findViewById(R.id.todoCheckbox);
+            if (wordview == null) {
+                System.out.println("null at pos " + i);
+            } else {
+                CheckBox status = wordview.findViewById(R.id.todoCheckbox);
                 if (status.isChecked()) {
                     list.add(i);
-                    System.out.println("yes "+i);
-                }
-                else{
-                    System.out.println("no "+i);
+                    System.out.println("yes " + i);
+                } else {
+                    System.out.println("no " + i);
                 }
 
             }
-
-
 
 
         }
@@ -153,7 +148,7 @@ public class SecondFragment extends Fragment {
     public void deleteItem(int position) {
         ToDoModel item = taskList.get(position);
         int editid = item.getId();
-        System.out.println("id : " + editid+" - "+item.getTask());
+        System.out.println("id : " + editid + " - " + item.getTask());
         Boolean checkupdatedata = DB.deleteuserdetails(editid);
     }
 
@@ -167,8 +162,8 @@ public class SecondFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
 
                         System.out.println("delete------------");
-                        for(int pos:checkedlist){
-                            System.out.println("deleting task on - "+pos);
+                        for (int pos : checkedlist) {
+                            System.out.println("deleting task on - " + pos);
                             deleteItem(pos);
                         }
                         refreshsecondFragment();

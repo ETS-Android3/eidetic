@@ -108,13 +108,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 EditText text = bottomSheetDialog.findViewById(R.id.newtaskText);
+                EditText datepicker = bottomSheetDialog.findViewById(R.id.datepicker);
                 String task = text.getText().toString();
+                String date = datepicker.getText().toString();
                 System.out.println(task);
                 if (task.equals("")) {
                     Toast.makeText(MainActivity.this, "Empty todo entry found.", Toast.LENGTH_SHORT).show();
                 } else {
+                    if(date.equals("")){
+                        date=getCurDate();
+                    }
 
-                    Boolean checkinsertdata = DB.insertuserdetails(task);
+                    Boolean checkinsertdata = DB.insertuserdetails(task,date);
                     if (checkinsertdata) {
                         Toast.makeText(MainActivity.this, "new entry inserted", Toast.LENGTH_SHORT).show();
 
@@ -132,6 +137,23 @@ public class MainActivity extends AppCompatActivity {
         });
 
         bottomSheetDialog.show();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public String getCurDate() {
+        Calendar c = Calendar.getInstance();
+        String date = makeDoubledigit(c.get(Calendar.DAY_OF_MONTH)) + "/" + makeDoubledigit(c.get(Calendar.MONTH)) + "/" + c.get(Calendar.YEAR) +
+                "\n" + makeDoubledigit(c.get(Calendar.HOUR_OF_DAY)) + ":" + makeDoubledigit(c.get(Calendar.MINUTE));
+        return date;
+
+    }
+    public String  makeDoubledigit(int a){
+        if(a<10){
+            return "0"+a;
+        }
+        else{
+            return ""+a;
+        }
     }
 
     @Override

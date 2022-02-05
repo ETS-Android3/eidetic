@@ -29,10 +29,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public Boolean insertuserdetails(String task) {
+    public Boolean insertuserdetails(String task,String date) {
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        String date=getCurDate();
+
         cv.put("task", task);
         cv.put("date", date);
         cv.put("status", 0);
