@@ -14,12 +14,12 @@ import androidx.annotation.RequiresApi;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     public DatabaseHelper(Context context) {
-        super(context, "Taskdata.db", null, 1);
+        super(context, "tododata.db", null, 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase DB) {
-        DB.execSQL("create table Tasklist(id INTEGER PRIMARY KEY AUTOINCREMENT,task TEXT NOT NULL,date TEXT NOT NULL)");
+        DB.execSQL("create table Tasklist(id INTEGER PRIMARY KEY AUTOINCREMENT,task TEXT NOT NULL,date TEXT NOT NULL,status INTEGER)");
     }
 
     @Override
@@ -35,6 +35,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String date=getCurDate();
         cv.put("task", task);
         cv.put("date", date);
+        cv.put("status", 0);
         long result = DB.insert("Tasklist", null, cv);
         if (result == -1) {
             return false;
@@ -44,12 +45,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public Boolean updateuserdetails(int id, String task) {
+    public Boolean updateuserdetails(int id, String task,String date){
+        SQLiteDatabase DB = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("task", task);
+        cv.put("date", date);
+        Cursor cursor = DB.rawQuery("select * from Tasklist where id=?", new String[]{String.valueOf(id)});
+
+        if (cursor.getCount() > 0) {
+
+            long result = DB.update("Tasklist", cv, "id=?", new String[]{String.valueOf(id)});
+            if (result == -1) {
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public Boolean updatestatus(int id, String task,int status) {
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         String date=getCurDate();
         cv.put("task", task);
         cv.put("date", date);
+        cv.put("status",status);
         Cursor cursor = DB.rawQuery("select * from Tasklist where id=?", new String[]{String.valueOf(id)});
 
         if (cursor.getCount() > 0) {

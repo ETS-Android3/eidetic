@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/colorOnPrimary"
     tools:context=".MainActivity">
 
     <FrameLayout
@@ -15,6 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
+        android:background="@android:color/transparent"
         app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -25,6 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:background="@drawable/top_border"
+        android:backgroundTint="?attr/colorSecondary"
         app:fabCradleMargin="10dp"
         app:fabCradleRoundedCornerRadius="50dp"
         app:hideOnScroll="true">
@@ -46,8 +49,8 @@
         android:id="@+id/addtaskbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
         android:src="@drawable/ic_add"
+        android:backgroundTint="?attr/colorSecondary"
         app:layout_anchor="@id/bottomAppBar"
         app:maxImageSize="50dp"
         tools:ignore="SpeakableTextPresentCheck" />

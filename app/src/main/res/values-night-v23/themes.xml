@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.Todo_app" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">#3667C8</item>
+        <item name="colorPrimaryVariant">#324771</item>
+        <item name="colorOnPrimary">#262B35</item>
+
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">#3B4252</item>
+        <item name="colorSecondaryVariant">#434C5E</item>
+        <item name="colorOnSecondary">#79869F</item>
+        <item name="android:textColor">@color/white</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">#262B35</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <!-- Customize your theme here. -->
+    </style>
+</resources>

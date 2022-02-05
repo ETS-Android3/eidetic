@@ -130,7 +130,8 @@ public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
                 ToDoModel task = new ToDoModel();
                 task.setId(res.getInt(0));
                 task.setTask(res.getString(1));
-                task.setStatus(0);
+                task.setDate(res.getString(2));
+                task.setStatus(res.getInt(3));
 
                 taskList.add(task);
                 System.out.println(res.getInt(0) + res.getString(1));
@@ -154,15 +155,18 @@ public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
     public void editItem(int position) {
         ToDoModel item = taskList.get(position);
         int editid=item.getId();
+        int editstatus=item.getStatus();
         String edittask=item.getTask();
-        System.out.println("id : "+editid+" task : "+edittask);
-        showBottomSheetDialog(editid,edittask);
+        String editdate= item.getDate();
+        System.out.println("id : "+editid+" task : "+edittask+" date : "+editdate+" status : "+editstatus);
+        showBottomSheetDialog(editid,edittask,editdate);
     }
 
     public void deleteItem(int position) {
         ToDoModel item = taskList.get(position);
         int editid=item.getId();
-        System.out.println("id : "+editid);
+        String editdate=item.getDate();
+        System.out.println("id : "+editid+" date : "+editdate);
         Boolean checkupdatedata=DB.deleteuserdetails(editid);
         if(checkupdatedata){
             Toast.makeText(thiscontext,"Deleted Task",Toast.LENGTH_LONG).show();
@@ -176,7 +180,7 @@ public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
     }
 
 
-    private void showBottomSheetDialog(int id,String prevtask) {
+    private void showBottomSheetDialog(int id,String prevtask,String prevdate) {
 
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(thiscontext,R.style.DialogStyle);
         bottomSheetDialog.setContentView(R.layout.new_task);
@@ -184,9 +188,11 @@ public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
 
         DB=new DatabaseHelper(thiscontext);
         EditText text = bottomSheetDialog.findViewById(R.id.newtaskText);
+        EditText date = bottomSheetDialog.findViewById(R.id.datepicker);
         Button save=bottomSheetDialog.findViewById(R.id.newtaskbtn);
         save.setText("Update");
         text.setText(prevtask);
+        date.setText(prevdate);
 
         save.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
@@ -194,22 +200,25 @@ public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
             public void onClick(View v) {
 
                 String task=text.getText().toString();
+                String newdate=date.getText().toString();
                 System.out.println(task);
-                if(prevtask.equals(task)){
+                if(prevtask.equals(task) && prevdate.equals(newdate)){
                     Toast.makeText(thiscontext,"No update made.",Toast.LENGTH_SHORT).show();
                     refreshsecondFragment();
-
+                    bottomSheetDialog.cancel();
                 }
                 else {
-                    Boolean checkupdatedata=DB.updateuserdetails(id,task);
+                    Boolean checkupdatedata=DB.updateuserdetails(id,task,newdate);
                     if(checkupdatedata){
                         Toast.makeText(thiscontext,"update saved",Toast.LENGTH_SHORT).show();
                         refreshsecondFragment();
+                        bottomSheetDialog.cancel();
 
                     }
                     else{
                         Toast.makeText(thiscontext,"update not saved",Toast.LENGTH_SHORT).show();
                         refreshsecondFragment();
+                        bottomSheetDialog.cancel();
                     }
                 }
 

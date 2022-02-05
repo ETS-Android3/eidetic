@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -99,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
         DB = new DatabaseHelper(thiscontext);
 
+
         Button save = bottomSheetDialog.findViewById(R.id.newtaskbtn);
         save.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
@@ -117,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
 
                         SecondFragment todostab = new SecondFragment();
                         loadFragment(todostab);
+                        bottomSheetDialog.cancel();
 
                     } else {
                         Toast.makeText(MainActivity.this, "entry not inserted", Toast.LENGTH_SHORT).show();

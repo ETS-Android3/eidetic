@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -70,22 +71,7 @@ public class SecondFragment extends Fragment {
             }
         });
 
-        // setting delete multiple delete condition
-        ImageButton deletebtn = (ImageButton) view.findViewById(R.id.deletechecked);
-        deletebtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                List<Integer> checkedlist = getChecked();
-                if (checkedlist.size() > 0) {
-                    System.out.println(checkedlist.size());
-                    createdialog(checkedlist);
 
-                } else {
-                    Toast.makeText(thiscontext, "Nothing Selected", Toast.LENGTH_SHORT).show();
-                    refreshsecondFragment();
-                }
-            }
-        });
 
         //  calling databasehelper
         DB = new DatabaseHelper(thiscontext);
@@ -94,14 +80,15 @@ public class SecondFragment extends Fragment {
             Toast.makeText(thiscontext, "whoohoo! No ToDo Present", Toast.LENGTH_SHORT).show();
 
         } else {
+            ImageView emptyimage=(ImageView) view.findViewById(R.id.emptypage);
+            emptyimage.setVisibility(View.INVISIBLE);
 
             while (res.moveToNext()) {
                 ToDoModel task = new ToDoModel();
                 task.setId(res.getInt(0));
                 task.setTask(res.getString(1));
-                task.setStatus(0);
+                task.setStatus(res.getInt(3));
                 task.setDate(res.getString(2));
-
                 taskList.add(task);
 //                System.out.println(res.getInt(0) + res.getString(1) + res.getString(2));
             }
