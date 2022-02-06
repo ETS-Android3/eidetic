@@ -6,6 +6,7 @@
         <item name="colorPrimary">#3667C8</item>
         <item name="colorPrimaryVariant">#A9C0EC</item>
         <item name="colorOnPrimary">#ECEFF4</item>
+        <item name="colorAccent">#3667C8</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">#E5E9F0</item>
         <item name="colorSecondaryVariant">#D8DEE9</item>

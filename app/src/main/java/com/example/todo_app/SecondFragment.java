@@ -23,6 +23,7 @@ import java.util.List;
 
 import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -79,7 +80,7 @@ public class SecondFragment extends Fragment {
 //            Toast.makeText(thiscontext, "whoohoo! No ToDo Present", Toast.LENGTH_SHORT).show();
 
         } else {
-            ImageView emptyimage = (ImageView) view.findViewById(R.id.emptypage);
+            ConstraintLayout emptyimage = (ConstraintLayout) view.findViewById(R.id.emptypage);
             emptyimage.setVisibility(View.INVISIBLE);
 
             while (res.moveToNext()) {

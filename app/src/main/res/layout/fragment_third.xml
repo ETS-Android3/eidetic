@@ -22,7 +22,7 @@
             android:layout_width="207dp"
             android:layout_height="45dp"
             android:layout_marginTop="4dp"
-            android:paddingLeft="20dp"
+            android:paddingStart="20dp"
             android:text="Notifications"
             android:textSize="30sp"
             android:textStyle="bold"
@@ -50,13 +50,59 @@
             tools:ignore="SpeakableTextPresentCheck" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="380dp"
-            android:layout_height="150dp"
-            android:layout_marginTop="108dp"
-            android:background="?attr/colorPrimaryVariant"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="104dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"
+                android:src="@drawable/noti"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <Switch
+                android:id="@+id/noti_toggle1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:minHeight="48dp"
+                android:text="Show Notifications on create  "
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+            <Switch
+                android:id="@+id/noti_toggle2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:minHeight="48dp"
+                android:text="Show Notifications Due Date  "
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.505"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/noti_toggle1" />
+
+            <Switch
+                android:id="@+id/noti_toggle3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:minHeight="48dp"
+                android:text="Show Notifications on Update   "
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/noti_toggle2" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

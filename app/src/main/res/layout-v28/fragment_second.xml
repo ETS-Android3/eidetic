@@ -43,7 +43,6 @@
         tools:ignore="SpeakableTextPresentCheck" />
 
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/taskRecyclerview"
         android:layout_width="match_parent"
@@ -56,13 +55,50 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
-    <ImageView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/emptypage"
         android:layout_width="300dp"
         android:layout_height="400dp"
-        android:src="@drawable/emptypage"
         android:layout_centerInParent="true"
-        android:layout_marginTop="200dp" />
+        android:layout_marginTop="200dp">
+
+        <ImageView
+            android:id="@+id/emptypageimage"
+            android:layout_width="300dp"
+            android:layout_height="200dp"
+
+            android:src="@drawable/emptypage"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.08" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            android:gravity="center"
+            android:text="No ToDos"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/emptypageimage"
+
+            app:layout_constraintVertical_bias="0.138"
+            tools:layout_editor_absoluteX="0dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="If you create any Todo,\n it will show here."
+            android:textSize="18dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/emptypageimage"
+            app:layout_constraintVertical_bias="0.538"
+            tools:layout_editor_absoluteX="0dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </RelativeLayout>
 

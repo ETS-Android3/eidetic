@@ -14,7 +14,7 @@ import androidx.annotation.RequiresApi;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     public DatabaseHelper(Context context) {
-        super(context, "tododata.db", null, 1);
+        super(context, "eideticall.db", null, 1);
     }
 
     @Override
