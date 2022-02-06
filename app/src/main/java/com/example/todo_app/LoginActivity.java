@@ -31,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     String url1 = "multitasking";
     String url2 = "multitasking1";
     String url3 = "multitasking2";
+    String url4 = "multitasking3";
     GoogleSignInClient mGoogleSignInClient;
     Button signInButton;
     private long pressedTime;
@@ -70,6 +71,7 @@ public class LoginActivity extends AppCompatActivity {
         sliderDataArrayList.add(new SliderData(url1));
         sliderDataArrayList.add(new SliderData(url2));
         sliderDataArrayList.add(new SliderData(url3));
+        sliderDataArrayList.add(new SliderData(url4));
 
         // passing this array list inside our adapter class.
         SliderAdapter adapter = new SliderAdapter(this, sliderDataArrayList);
