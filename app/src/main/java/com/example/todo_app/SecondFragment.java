@@ -1,6 +1,8 @@
 package com.example.todo_app;
 
 import android.app.AlertDialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
@@ -24,6 +26,8 @@ import java.util.List;
 import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -48,6 +52,7 @@ public class SecondFragment extends Fragment {
     private List<ToDoModel> taskList;
     DatabaseHelper DB;
     View view;
+
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -110,6 +115,7 @@ public class SecondFragment extends Fragment {
 
 
     }
+
 
 
 }

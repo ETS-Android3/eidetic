@@ -1,6 +1,8 @@
 package com.example.todo_app.Adapter;
 
 import android.app.AlertDialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.view.LayoutInflater;
@@ -12,6 +14,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.todo_app.Utils.DatabaseHelper;
@@ -25,6 +29,9 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
     private List<ToDoModel> todoList;
     private SecondFragment activity;
     DatabaseHelper DB;
+    private final String CHANNEL_ID = "done_todo";
+    private final int NOTIFICATION_ID = 2;
+
 
     public ToDoAdapter(SecondFragment activity) {
         this.activity = activity;
@@ -43,6 +50,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 
 
+        createNotificationChannel();
         final ToDoModel item = todoList.get(position);
         holder.task.setText(item.getTask());
         holder.task.setChecked(toBoolean(item.getStatus()));
@@ -59,6 +67,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
                     DB = new DatabaseHelper(activity.getContext());
                     DB.updatestatus(c_id, item.getTask(),1);
                     createdialog(c_id);
+
                 }
                 if(!checked){
                     int c_id=item.getId();
@@ -79,6 +88,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Boolean checkupdatedata = DB.deleteuserdetails(id);
+                        displayNotification("Task completed and removed.");
                         refreshsecondFragment();
 
                     }
@@ -88,6 +98,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         System.out.println("do nothing----------------");
+                        displayNotification("Task completed.");
 //                        refreshsecondFragment();
                     }
                 });
@@ -103,6 +114,35 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
         transaction.commit();
 
 
+    }
+    private void displayNotification(String body) {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(activity.getActivity(), CHANNEL_ID)
+                .setSmallIcon(R.mipmap.ic_launcher_round)
+                .setContentTitle("Task Completed and keeped.")
+                .setContentText(body)
+
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(activity.getActivity());
+
+// notificationId is a unique int for each notification that you must define
+        notificationManager.notify(NOTIFICATION_ID, builder.build());
+    }
+
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "simple Notification";
+            String description = "include All notifications";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = activity.getActivity().getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 
     public int getItemCount() {

@@ -1,6 +1,8 @@
 package com.example.todo_app;
 
 import android.app.AlertDialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
@@ -15,6 +17,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -33,6 +37,10 @@ public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
     Context thiscontext;
     DatabaseHelper DB;
     private List<ToDoModel> taskList;
+
+    private final String CHANNEL_ID = "update_delete_todo";
+    private final int NOTIFICATION_ID = 3;
+
     public RecyclerItemTouchHelper(ToDoAdapter adapter){
         super(0,ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
         this.adapter=adapter;
@@ -47,6 +55,7 @@ public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
     @Override
     public void onSwiped(final RecyclerView.ViewHolder viewHolder,int direction){
         final int position=viewHolder.getAdapterPosition();
+        createNotificationChannel();
         if(direction==ItemTouchHelper.LEFT){
             AlertDialog.Builder builder=new AlertDialog.Builder(adapter.getContext().thiscontext);
             builder.setTitle("Delete Task");
@@ -165,11 +174,13 @@ public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
     public void deleteItem(int position) {
         ToDoModel item = taskList.get(position);
         int editid=item.getId();
+        String edittask=item.getTask();
         String editdate=item.getDate();
         System.out.println("id : "+editid+" date : "+editdate);
         Boolean checkupdatedata=DB.deleteuserdetails(editid);
         if(checkupdatedata){
             Toast.makeText(thiscontext,"Deleted Task",Toast.LENGTH_LONG).show();
+            displayNotification("Deleted Todo",edittask);
             refreshsecondFragment();
 
         }
@@ -211,6 +222,7 @@ public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
                     Boolean checkupdatedata=DB.updateuserdetails(id,task,newdate);
                     if(checkupdatedata){
                         Toast.makeText(thiscontext,"update saved",Toast.LENGTH_SHORT).show();
+                        displayNotification("Updated Todo",task);
                         refreshsecondFragment();
                         bottomSheetDialog.cancel();
 
@@ -235,6 +247,36 @@ public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
         transaction.replace(R.id.flFragment, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    private void displayNotification(String title,String body) {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(thiscontext, CHANNEL_ID)
+                .setSmallIcon(R.mipmap.ic_launcher_round)
+                .setContentTitle(title)
+                .setContentText(body)
+
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(thiscontext);
+
+// notificationId is a unique int for each notification that you must define
+        notificationManager.notify(NOTIFICATION_ID, builder.build());
+    }
+
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "simple Notification";
+            String description = "include All notifications";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = adapter.getContext().getActivity().getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 
 
