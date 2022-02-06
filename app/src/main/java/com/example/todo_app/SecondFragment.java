@@ -69,7 +69,7 @@ public class SecondFragment extends Fragment {
         itemTouchHelper.attachToRecyclerView(taskRecyclerView);
 
         // setting reload
-        ImageButton reloadbtn = (ImageButton) view.findViewById(R.id.reload);
+        Button reloadbtn = (Button) view.findViewById(R.id.reload);
         reloadbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
