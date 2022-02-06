@@ -23,8 +23,14 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.smarteist.autoimageslider.SliderView;
+
+import java.util.ArrayList;
 
 public class LoginActivity extends AppCompatActivity {
+    String url1 = "multitasking";
+    String url2 = "multitasking1";
+    String url3 = "multitasking2";
     GoogleSignInClient mGoogleSignInClient;
     Button signInButton;
     private long pressedTime;
@@ -50,6 +56,42 @@ public class LoginActivity extends AppCompatActivity {
                 startactivityresult.launch(signInIntent);
             }
         });
+
+
+
+        // image slider
+        // we are creating array list for storing our image urls.
+        ArrayList<SliderData> sliderDataArrayList = new ArrayList<>();
+
+        // initializing the slider view.
+        SliderView sliderView = findViewById(R.id.slider);
+
+        // adding the urls inside array list
+        sliderDataArrayList.add(new SliderData(url1));
+        sliderDataArrayList.add(new SliderData(url2));
+        sliderDataArrayList.add(new SliderData(url3));
+
+        // passing this array list inside our adapter class.
+        SliderAdapter adapter = new SliderAdapter(this, sliderDataArrayList);
+
+        // below method is used to set auto cycle direction in left to
+        // right direction you can change according to requirement.
+        sliderView.setAutoCycleDirection(SliderView.LAYOUT_DIRECTION_LTR);
+
+        // below method is used to
+        // setadapter to sliderview.
+        sliderView.setSliderAdapter(adapter);
+
+        // below method is use to set
+        // scroll time in seconds.
+        sliderView.setScrollTimeInSec(10);
+
+        // to set it scrollable automatically
+        // we use below method.
+        sliderView.setAutoCycle(true);
+
+        // to start autocycle below method is used.
+        sliderView.startAutoCycle();
     }
 
     public void updateUI(GoogleSignInAccount account){

@@ -180,7 +180,10 @@ public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
         Boolean checkupdatedata=DB.deleteuserdetails(editid);
         if(checkupdatedata){
             Toast.makeText(thiscontext,"Deleted Task",Toast.LENGTH_LONG).show();
-            displayNotification("Deleted Todo",edittask);
+            if(get_noti(3,DB)){
+                displayNotification("Deleted Todo",edittask);
+            }
+
             refreshsecondFragment();
 
         }
@@ -222,7 +225,10 @@ public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
                     Boolean checkupdatedata=DB.updateuserdetails(id,task,newdate);
                     if(checkupdatedata){
                         Toast.makeText(thiscontext,"update saved",Toast.LENGTH_SHORT).show();
-                        displayNotification("Updated Todo",task);
+                        if(get_noti(3,DB)){
+                            displayNotification("Updated Todo",task);
+                        }
+
                         refreshsecondFragment();
                         bottomSheetDialog.cancel();
 
@@ -277,6 +283,15 @@ public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
             NotificationManager notificationManager = adapter.getContext().getActivity().getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
+    }
+
+    private boolean get_noti(int switch_id,DatabaseHelper DB) {
+        Cursor res = DB.getNotidata();
+        int data = 0;
+        while (res.moveToNext()) {
+            data = res.getInt(switch_id);
+        }
+        return data == 1;
     }
 
 

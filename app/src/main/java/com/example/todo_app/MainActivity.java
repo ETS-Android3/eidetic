@@ -13,6 +13,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private final String CHANNEL_ID = "Creation_todo";
     private final int NOTIFICATION_ID = 1;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +55,8 @@ public class MainActivity extends AppCompatActivity {
         SecondFragment todostab = new SecondFragment();
         ThirdFragment notificationtab = new ThirdFragment();
         fourthFragment profiletab = new fourthFragment();
-
+        DB = new DatabaseHelper(this);
+        activate_noti();
         createNotificationChannel();
         loadFragment(todostab);
         View bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNevigationView);
@@ -107,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
         bottomSheetDialog.setContentView(R.layout.new_task);
         thiscontext = bottomSheetDialog.getContext();
 
-        DB = new DatabaseHelper(thiscontext);
+
 
 
         Button save = bottomSheetDialog.findViewById(R.id.newtaskbtn);
@@ -130,7 +133,9 @@ public class MainActivity extends AppCompatActivity {
                     Boolean checkinsertdata = DB.insertuserdetails(task, date);
                     if (checkinsertdata) {
                         Toast.makeText(MainActivity.this, "new entry inserted", Toast.LENGTH_SHORT).show();
-                        displayNotification(task);
+                        if (get_noti(1)) {
+                            displayNotification(task);
+                        }
                         SecondFragment todostab = new SecondFragment();
                         loadFragment(todostab);
                         bottomSheetDialog.cancel();
@@ -204,6 +209,23 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(getBaseContext(), "Press back again to exit", Toast.LENGTH_SHORT).show();
         }
         pressedTime = System.currentTimeMillis();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void activate_noti() {
+        Cursor res = DB.getNotidata();
+        if (res.getCount() == 0) {
+            DB.insertNotidetails();
+        }
+    }
+
+    private boolean get_noti(int switch_id) {
+        Cursor res = DB.getNotidata();
+        int data = 0;
+        while (res.moveToNext()) {
+            data = res.getInt(switch_id);
+        }
+        return data == 1;
     }
 
 

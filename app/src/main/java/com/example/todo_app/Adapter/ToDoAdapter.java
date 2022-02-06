@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.DialogInterface;
+import android.database.Cursor;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -88,7 +89,9 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Boolean checkupdatedata = DB.deleteuserdetails(id);
-                        displayNotification("Task completed and removed.");
+                        if(get_noti(2,DB)){
+                            displayNotification("Task completed and removed.");
+                        }
                         refreshsecondFragment();
 
                     }
@@ -98,7 +101,10 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         System.out.println("do nothing----------------");
-                        displayNotification("Task completed.");
+                        if(get_noti(2,DB)){
+                            displayNotification("Task completed.");
+                        }
+
 //                        refreshsecondFragment();
                     }
                 });
@@ -143,6 +149,15 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
             NotificationManager notificationManager = activity.getActivity().getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
+    }
+
+    private boolean get_noti(int switch_id,DatabaseHelper DB) {
+        Cursor res = DB.getNotidata();
+        int data = 0;
+        while (res.moveToNext()) {
+            data = res.getInt(switch_id);
+        }
+        return data == 1;
     }
 
     public int getItemCount() {
