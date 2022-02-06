@@ -3,7 +3,7 @@
 
     <style name="Theme.Todo_app" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#3667C8</item>
+        <item name="colorPrimary">#2A6BED</item>
         <item name="colorPrimaryVariant">#324771</item>
         <item name="colorOnPrimary">#262B35</item>
         <item name="colorAccent">#4A7EE1</item>
