@@ -5,10 +5,10 @@ A modern ToDo android application.
 
 ## Some snapshots of Eidetic
 <p float="left">
-  <img src="static/appss (1).png" width="100" />
-  <img src="static/appss (2).png" width="100" />
-  <img src="static/appss (3).png" width="100" />
-  <img src="static/appss (4).png" width="100" />
+  <img src="static/appss (1).jpg" width="100" />
+  <img src="static/appss (2).jpg" width="100" />
+  <img src="static/appss (3).jpg" width="100" />
+  <img src="static/appss (4).jpg" width="100" />
 </p>
 
 <br><br>
