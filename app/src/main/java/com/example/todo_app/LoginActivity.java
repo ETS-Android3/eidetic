@@ -35,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     GoogleSignInClient mGoogleSignInClient;
     Button signInButton;
     private long pressedTime;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
                 .requestEmail()
                 .build();
 
-        mGoogleSignInClient = GoogleSignIn.getClient(this,gso);
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
 
@@ -57,7 +58,6 @@ public class LoginActivity extends AppCompatActivity {
                 startactivityresult.launch(signInIntent);
             }
         });
-
 
 
         // image slider
@@ -96,34 +96,33 @@ public class LoginActivity extends AppCompatActivity {
         sliderView.startAutoCycle();
     }
 
-    public void updateUI(GoogleSignInAccount account){
+    public void updateUI(GoogleSignInAccount account) {
 
-        Button signoutButton=findViewById(R.id.sign_out_button);
-        if(account!=null){
+        Button signoutButton = findViewById(R.id.sign_out_button);
+        if (account != null) {
             String personName = account.getDisplayName();
             String personGivenName = account.getGivenName();
             String personFamilyName = account.getFamilyName();
             String personEmail = account.getEmail();
             String personId = account.getId();
             Uri personPhoto = account.getPhotoUrl();
-            final Intent i=new Intent(LoginActivity.this,MainActivity.class);
+            final Intent i = new Intent(LoginActivity.this, MainActivity.class);
             finish();
             startActivity(i);
 
 
-        }
-        else{
+        } else {
             Toast.makeText(this, "log in failed! try again", Toast.LENGTH_SHORT).show();
         }
     }
 
 
-    ActivityResultLauncher<Intent> startactivityresult=registerForActivityResult(
+    ActivityResultLauncher<Intent> startactivityresult = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
                 @Override
                 public void onActivityResult(ActivityResult result) {
-                    if(result.getResultCode()== Activity.RESULT_OK){
+                    if (result.getResultCode() == Activity.RESULT_OK) {
                         Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(result.getData());
                         handleSignInResult(task);
                     }
@@ -141,7 +140,7 @@ public class LoginActivity extends AppCompatActivity {
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
-            Log.d("GOOGLE ERROR",e.getMessage());
+            Log.d("GOOGLE ERROR", e.getMessage());
         }
     }
 

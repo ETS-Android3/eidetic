@@ -14,14 +14,13 @@ import androidx.annotation.RequiresApi;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     public DatabaseHelper(Context context) {
-        super(context, "eidetic_database.db", null, 3);
+        super(context, "eidetic_database.db", null, 4);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onCreate(SQLiteDatabase DB) {
-        DB.execSQL("create table Tasklist(id INTEGER PRIMARY KEY AUTOINCREMENT,task TEXT NOT NULL,date TEXT NOT NULL,status INTEGER)");
-        DB.execSQL("create table Notidata(id INTEGER PRIMARY KEY AUTOINCREMENT,switch1 INTEGER NOT NULL,switch2 INTEGER NOT NULL,switch3 INTEGER NOT NULL)");
+        createTables(DB);
 //        insertNotidetails();
     }
 
@@ -31,9 +30,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         DB.execSQL("drop Table if exists Tasklist");
         DB.execSQL("drop Table if exists Notidata");
-        DB.execSQL("create table Tasklist(id INTEGER PRIMARY KEY AUTOINCREMENT,task TEXT NOT NULL,date TEXT NOT NULL,status INTEGER)");
-        DB.execSQL("create table Notidata(id INTEGER PRIMARY KEY AUTOINCREMENT,switch1 INTEGER NOT NULL,switch2 INTEGER NOT NULL,switch3 INTEGER NOT NULL)");
+        createTables(DB);
 
+    }
+
+    private void createTables(SQLiteDatabase DB) {
+        DB.execSQL("create table Tasklist(id INTEGER PRIMARY KEY AUTOINCREMENT,task TEXT NOT NULL,date TEXT NOT NULL,status INTEGER,user TEXT NOT NULL)");
+        DB.execSQL("create table Notidata(id INTEGER PRIMARY KEY AUTOINCREMENT,switch1 INTEGER NOT NULL,switch2 INTEGER NOT NULL,switch3 INTEGER NOT NULL)");
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -55,16 +58,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Cursor getNotidata() {
         SQLiteDatabase DB = this.getWritableDatabase();
 
-        Cursor cursor = DB.rawQuery("select * from Notidata",null);
+        Cursor cursor = DB.rawQuery("select * from Notidata", null);
 
         return cursor;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public Boolean updateNotistatus(int status,String Switch) {
+    public Boolean updateNotistatus(int status, String Switch) {
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        String date=getCurDate();
+        String date = getCurDate();
         cv.put(Switch, status);
 
         Cursor cursor = DB.rawQuery("select * from Notidata where id=?", new String[]{String.valueOf(1)});
@@ -72,7 +75,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (cursor.getCount() > 0) {
 
             long result = DB.update("Notidata", cv, "id=?", new String[]{String.valueOf(1)});
-            System.out.println(result+" -----");
+            System.out.println(result + " -----");
             if (result == -1) {
                 return false;
             } else {
@@ -85,13 +88,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public Boolean insertuserdetails(String task,String date) {
+    public Boolean insertuserdetails(String task, String date, String user) {
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
         cv.put("task", task);
         cv.put("date", date);
         cv.put("status", 0);
+        cv.put("user", user);
         long result = DB.insert("Tasklist", null, cv);
         if (result == -1) {
             return false;
@@ -101,7 +105,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public Boolean updateuserdetails(int id, String task,String date){
+    public Boolean updateuserdetails(int id, String task, String date) {
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put("task", task);
@@ -122,13 +126,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public Boolean updatestatus(int id, String task,int status) {
+    public Boolean updatestatus(int id, String task, int status) {
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        String date=getCurDate();
+        String date = getCurDate();
         cv.put("task", task);
         cv.put("date", date);
-        cv.put("status",status);
+        cv.put("status", status);
         Cursor cursor = DB.rawQuery("select * from Tasklist where id=?", new String[]{String.valueOf(id)});
 
         if (cursor.getCount() > 0) {
@@ -165,7 +169,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Cursor getdata() {
         SQLiteDatabase DB = this.getWritableDatabase();
 
-        Cursor cursor = DB.rawQuery("select * from Tasklist",null);
+        Cursor cursor = DB.rawQuery("select * from Tasklist", null);
 
         return cursor;
     }
@@ -178,15 +182,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return date;
 
     }
-    public String  makeDoubledigit(int a){
-        if(a<10){
-            return "0"+a;
-        }
-        else{
-            return ""+a;
+
+    public String makeDoubledigit(int a) {
+        if (a < 10) {
+            return "0" + a;
+        } else {
+            return "" + a;
         }
     }
-
 
 
 }

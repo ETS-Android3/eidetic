@@ -25,6 +25,10 @@ import android.widget.Toast;
 import com.example.todo_app.Adapter.ToDoAdapter;
 import com.example.todo_app.Model.ToDoModel;
 import com.example.todo_app.Utils.DatabaseHelper;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -42,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private long pressedTime;
     private final String CHANNEL_ID = "Creation_todo";
     private final int NOTIFICATION_ID = 1;
+    GoogleSignInClient mGoogleSignInClient;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -111,8 +116,6 @@ public class MainActivity extends AppCompatActivity {
         thiscontext = bottomSheetDialog.getContext();
 
 
-
-
         Button save = bottomSheetDialog.findViewById(R.id.newtaskbtn);
         save.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
@@ -123,14 +126,15 @@ public class MainActivity extends AppCompatActivity {
                 String task = text.getText().toString();
                 String date = datepicker.getText().toString();
                 System.out.println(task);
-                if (task.equals("")) {
+                String currentUser = getCurrentUser();
+                if (task.equals("") && currentUser != null) {
                     Toast.makeText(MainActivity.this, "Empty todo entry found.", Toast.LENGTH_SHORT).show();
                 } else {
                     if (date.equals("")) {
                         date = getCurDate();
                     }
 
-                    Boolean checkinsertdata = DB.insertuserdetails(task, date);
+                    Boolean checkinsertdata = DB.insertuserdetails(task, date, currentUser);
                     if (checkinsertdata) {
                         Toast.makeText(MainActivity.this, "new entry inserted", Toast.LENGTH_SHORT).show();
                         if (get_noti(1)) {
@@ -226,6 +230,23 @@ public class MainActivity extends AppCompatActivity {
             data = res.getInt(switch_id);
         }
         return data == 1;
+    }
+
+    private String getCurrentUser() {
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        if (account != null) {
+            String personEmail = account.getEmail();
+            return personEmail;
+        } else {
+            return null;
+        }
+
     }
 
 

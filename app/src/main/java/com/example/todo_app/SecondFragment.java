@@ -38,6 +38,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.todo_app.Adapter.ToDoAdapter;
 import com.example.todo_app.Model.ToDoModel;
 import com.example.todo_app.Utils.DatabaseHelper;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -52,6 +56,7 @@ public class SecondFragment extends Fragment {
     private List<ToDoModel> taskList;
     DatabaseHelper DB;
     View view;
+    GoogleSignInClient mGoogleSignInClient;
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -81,6 +86,7 @@ public class SecondFragment extends Fragment {
         //  calling databasehelper
         DB = new DatabaseHelper(thiscontext);
         Cursor res = DB.getdata();
+        String currentUser = getCurrentUser();
         if (res.getCount() == 0) {
 //            Toast.makeText(thiscontext, "whoohoo! No ToDo Present", Toast.LENGTH_SHORT).show();
 
@@ -89,13 +95,16 @@ public class SecondFragment extends Fragment {
             emptyimage.setVisibility(View.INVISIBLE);
 
             while (res.moveToNext()) {
-                ToDoModel task = new ToDoModel();
-                task.setId(res.getInt(0));
-                task.setTask(res.getString(1));
-                task.setStatus(res.getInt(3));
-                task.setDate(res.getString(2));
-                taskList.add(task);
-//                System.out.println(res.getInt(0) + res.getString(1) + res.getString(2));
+                String TaskUser = res.getString(4);
+                if (currentUser != null && currentUser.equals(TaskUser)) {
+                    ToDoModel task = new ToDoModel();
+                    task.setId(res.getInt(0));
+                    task.setTask(res.getString(1));
+                    task.setStatus(res.getInt(3));
+                    task.setDate(res.getString(2));
+                    taskList.add(task);
+                }
+                System.out.println(res.getInt(0) + res.getString(1) + res.getString(2));
             }
         }
 
@@ -116,6 +125,22 @@ public class SecondFragment extends Fragment {
 
     }
 
+    private String getCurrentUser() {
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        mGoogleSignInClient = GoogleSignIn.getClient(thiscontext, gso);
+
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(thiscontext);
+        if (account != null) {
+            String personEmail = account.getEmail();
+            return personEmail;
+        } else {
+            return null;
+        }
+
+    }
 
 
 }

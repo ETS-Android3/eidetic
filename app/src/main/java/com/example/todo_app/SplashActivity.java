@@ -20,6 +20,7 @@ import java.util.Objects;
 
 public class SplashActivity extends AppCompatActivity {
     GoogleSignInClient mGoogleSignInClient;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +31,7 @@ public class SplashActivity extends AppCompatActivity {
                 .requestEmail()
                 .build();
 
-        mGoogleSignInClient = GoogleSignIn.getClient(this,gso);
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         updateUI(account);
@@ -39,29 +40,28 @@ public class SplashActivity extends AppCompatActivity {
     }
 
 
-    public void updateUI(GoogleSignInAccount account){
+    public void updateUI(GoogleSignInAccount account) {
 
-        if(account!=null){
+        if (account != null) {
             String personName = account.getDisplayName();
             String personGivenName = account.getGivenName();
             String personFamilyName = account.getFamilyName();
             String personEmail = account.getEmail();
             String personId = account.getId();
             Uri personPhoto = account.getPhotoUrl();
-            Toast.makeText(this, "hi, "+personName, Toast.LENGTH_SHORT).show();
-            final Intent i=new Intent(SplashActivity.this,MainActivity.class);
+            Toast.makeText(this, "hi, " + personName, Toast.LENGTH_SHORT).show();
+            final Intent i = new Intent(SplashActivity.this, MainActivity.class);
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     startActivity(i);
                     finish();
                 }
-            },1000);
+            }, 1000);
 
 
-        }
-        else{
-            final Intent i=new Intent(SplashActivity.this,LoginActivity.class);
+        } else {
+            final Intent i = new Intent(SplashActivity.this, LoginActivity.class);
 
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -69,7 +69,7 @@ public class SplashActivity extends AppCompatActivity {
                     startActivity(i);
                     finish();
                 }
-            },800);
+            }, 800);
 
         }
     }
