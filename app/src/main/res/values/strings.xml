@@ -2,5 +2,5 @@
     <string name="app_name">eidetic</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="appversion">Version : v4.3.0 Beta</string>
+    <string name="appversion">Version : v4.3.0 Alpha</string>
 </resources>
